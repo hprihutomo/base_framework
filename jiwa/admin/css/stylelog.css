@@ -1,0 +1,38 @@
+body{background:url(../images/bg.gif) repeat-x;}
+
+.container{
+	/*border: 3px solid rgba(100,100,100,0.5);border-top: hidden;border-bottom: hidden;*/
+	width: 900px;
+	margin:auto;
+	/*background:url(../images/box.jpg) no-repeat;*/
+	top: 0;bottom: 0;
+}
+
+#menu{/*Menu Kiri Motif*/
+	border: 2px solid rgba(100,100,100,0.8);
+	width:230px;
+	margin: 40px 0 0 10px;
+	
+}
+#menu h1{
+	background-image: url(../images/button_active.gif);padding:5px;font:1.2em Arial;color:white;font-weight: bold;
+}
+#menu li{
+	border-bottom: 1px solid rgba(100,100,100,0.3);
+	padding: 5px 0px 5px 15px;
+	text-align: left;
+	background: white url(../images/button_default.gif) repeat-x center;
+	font: 0.8em Arial;
+	color: white;
+}
+#menu li:hover{background-image: url(../images/button_active.gif);text-decoration:underline;color: gray;}
+#kanan{/*Motif Module Kanan*/
+	border: 2px solid gray;border-radius: 4px 4px 0 0;
+	width:700px;
+	margin:-250px 0 0 270px;
+	background:rgba(255,255,255,0.8);
+}
+.isi{padding: 30px; background:url(../images/bg.jpg);}
+.isi p{/*index Menu Kiri Motif*/
+	font:1em Arial;color: rgba(100,100,100,0.9);
+}
