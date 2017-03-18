@@ -1,0 +1,18 @@
+
+
+Assets
+	-	css
+	-	js
+	-	less
+
+Class
+	- 	Entitas dalam system
+
+Library
+	-	Folder keperluan untuk mengatur database
+
+Module
+	-	Folder form-form dan tampilan 
+
+Provider
+	-	File yang menghubungkan database kedalam form2
