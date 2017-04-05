@@ -1,7 +1,7 @@
 <?php
     // Konfigurasi database anda
     $host = "localhost";
-    $dbname = "dbcafe";
+    $dbname = "appcafe";
     $username = "root";
     $password = "root";
 

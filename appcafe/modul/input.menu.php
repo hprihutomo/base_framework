@@ -1,11 +1,11 @@
 <?php
 if (isset($_POST['simpan'])) {
 
-  $query = "INSERT INTO msmenu (idJenisMenu,namaMenu,Hpp,HargaMenu,DiscMenu,StatusMenu)
+  $query = "INSERT INTO menu (namamenu,idjnsmenu,Hpp,Harga,menudiskon,statusMenu)
             VALUES (?,?,?,?,?,?)";
   $stmt = $db->prepare($query);
-  $stmt->bindParam(1,$_POST['jnsmenu']);
-  $stmt->bindParam(2,$_POST['namaMenu']);
+  $stmt->bindParam(2,$_POST['jnsmenu']);
+  $stmt->bindParam(1,$_POST['namaMenu']);
   $stmt->bindParam(3,$_POST['HPP']);
   $stmt->bindParam(4,$_POST['harga']);
   $stmt->bindParam(5,$_POST['disc']);

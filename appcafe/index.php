@@ -1,4 +1,33 @@
-<?php include 'conn.php'; ?>
+<?php
+session_start();
+include 'conn.php';
+if (isset ($_POST['login'])) {
+      $username = $_POST['username'];
+      $password = $_POST['password'];
+
+      if(empty($username) || empty($password)){
+             $pesan = "<div class='alert alert-warning'>PERIKSA USERNAME / PASSWORD</div>";
+
+      }
+      else {
+
+          $query = "SELECT * FROM pengguna WHERE namapengguna = :namapengguna AND password = :password";
+          $stmt = $db->prepare($query);
+          $stmt->bindParam(':namapengguna',$username);
+          $stmt->bindParam(':password',$password);
+          $stmt->execute();
+          $login = $stmt->fetch();
+
+          if($login == true){
+            $_SESSION['nama'] = $login['namapengguna'];
+            header('Location: index.php');
+          }else{
+
+            $pesan = "<div class='alert alert-danger'>Login Error</div>";
+          }
+      }
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,31 +78,36 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                  <?php if ($_SESSION['nama']==""){ ?>
                     <li>
-                        <a href="?p=DATA KASIR"><i class="glyphicon glyphicon-alert"></i> KASIR</a>
+                        <a href="?p=login"><i class="glyphicon glyphicon-log-in"></i> LOGIN</a>
+                    </li>
+                    <?php }else{ ?>
+                    <li>
+                        <a href="?p=DATA KASIR"><i class="glyphicon glyphicon-shopping-cart"></i> KASIR</a>
                     </li>
                     <li>
-                        <a href="?p=TRANSAKSI"><i class="glyphicon glyphicon-alert"></i> TRANSAKSI</a>
+                        <a href="?p=TRANSAKSI"><i class="glyphicon glyphicon-usd"></i> TRANSAKSI</a>
                     </li>
                     <li>
                         <a href="?p=MENU"><i class="glyphicon glyphicon-folder-open"></i> MENU</a>
                     </li>
                     <li>
-                        <a href="?p=MEJA"><i class="glyphicon glyphicon-folder-open"></i> MEJA</a>
-                    </li>
-
-                    <li>
-                        <a href="?p=PEMBELIAN"><i class="glyphicon glyphicon-folder-open"></i> PEMBELIAN</a>
+                        <a href="?p=MEJA"><i class="glyphicon glyphicon-unchecked"></i> MEJA</a>
                     </li>
                     <li>
-                        <a href="?p=PEGAWAI"><i class="glyphicon glyphicon-folder-open"></i> PEGAWAI</a>
+                        <a href="?p=PEMBELIAN"><i class="glyphicon glyphicon-menu-hamburger"></i> PEMBELIAN</a>
                     </li>
                     <li>
-                        <a href="?p=LAPORAN"><i class="glyphicon glyphicon-folder-open"></i> LAPORAN</a>
+                        <a href="?p=PEGAWAI"><i class="glyphicon glyphicon-user"></i> PEGAWAI</a>
                     </li>
                     <li>
-                        <a href="?p=login"><i class="glyphicon glyphicon-user"></i> ADMIN</a>
+                        <a href="?p=LAPORAN"><i class="glyphicon glyphicon-print"></i> LAPORAN</a>
                     </li>
+                    <li>
+                        <a href="?p=logout"><i class="glyphicon glyphicon-log-out"></i> LOG OUT</a>
+                    </li>
+                    <?php } ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -112,6 +146,9 @@
                 case 'login':
                     include 'login.php';
                   break;
+                case 'logout':
+                    include 'logout.php';
+                  break;
                 case 'MEJA':
                     include 'modul/data.meja.php';
                   break;
@@ -133,12 +170,33 @@
                 case 'PEGAWAI':
                     include 'modul/data.pegawai.php';
                   break;
+                case 'TAMBAH PEGAWAI':
+                    include 'modul/input.pegawai.php';
+                  break;
+                case 'EDIT PEGAWAI':
+                    include 'modul/edit.pegawai.php';
+                  break;
                 case 'PEMBELIAN':
                     include 'modul/data.pembelian.php';
                 break;
+                case 'TAMBAH PEMBELIAN':
+                    include 'modul/tambah.pembelian.php';
+                break;
+                case 'LAPORAN':
+                    include 'modul/laporan.php';
+                break;
+                case 'LAPORAN PEMBELIAN':
+                    include 'modul/laporan.pembelian.php';
+                break;
+                case 'LAPORAN PENJUALAN':
+                    include 'modul/laporan.penjualan.php';
+                break;
+                case 'INPUT PEMBELIAN':
+                    include 'modul/input.pembelian.php';
+                break;
                 default:
                   include 'home.php';
-                  break;
+                break;
               }
 
         ?>
@@ -161,6 +219,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/dataTables.bootstrap.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/popup.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $('#mytable').DataTable({
@@ -169,6 +228,41 @@
         });
     });
     </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#diskon').keyup(function(){
+          var harga = parseFloat($('#harga').val());
+          var diskon = parseFloat($('#diskon').val());
+          var hdiskon = harga*(diskon/100);
+          $('#hdiskon').val(hdiskon);
+
+          var hardiskon = parseFloat($('#hdiskon').val());
+          var total = harga-hdiskon;
+          $('#hargatotal').val(total);
+
+          var stotal   = parseFloat($('#hargatotal').val());
+
+          var qty     = parseFloat($('#qty').val());
+          var subtotal = qty*stotal;
+
+          $('#subtotal').val(subtotal);
+
+
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#hargabl').keyup(function(){
+          var qtybl = parseFloat($('#qtybl').val());
+          var hargabl = parseFloat($('#hargabl').val());
+          var subtotalbl = qtybl*hargabl;
+          $('#subtotalbl').val(subtotalbl);
+
+        });
+      });
+    </script>
+
 
 </body>
 

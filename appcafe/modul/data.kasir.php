@@ -8,16 +8,18 @@
 
     <table class="table table-bordered table-condensed" id="mytable">
       <thead>
-        <th width="50">NO</th>
+        <!-- <th width="50">NO</th> -->
         <th>NO TRANSAKSI</th>
         <th>NO MEJA</th>
         <th>KASIR</th>
+        <th>WAITRESS</th>
         <th>TGL TRANSAKSI</th>
-        <th width="50">AKSI</th>
+        <th width="150">AKSI</th>
       </thead>
       <tbody>
         <?php
-          $query = "SELECT * FROM mstable";
+          $today = date('Y-m-d');
+          $query = "SELECT * FROM head_transaksi WHERE tgltransaksi = '".$today."'";
           $stmt = $db->prepare($query);
           $stmt->execute();
           $i = 1;
@@ -25,13 +27,15 @@
             $no = $i++;
          ?>
         <tr>
-          <td><?php echo $no; ?></td>
-          <td><?php echo $value['code_tables']; ?></td>
-          <td><?php echo $value['code_tables']; ?></td>
-          <td><?php echo $value['code_tables']; ?></td>
-          <td><?php echo $value['code_tables']; ?></td>
+          <!-- <td><?php echo $no; ?></td> -->
+          <td><?php echo $value['idtransaksi']; ?></td>
+          <td><?php echo $value['nomormeja']; ?></td>
+          <td><?php echo $value['namapengguna']; ?></td>
+          <td><?php echo $value['waitress']; ?></td>
+          <td><?php echo $value['tgltransaksi']; ?></td>
           <td>
-            <a href="?p=PEMBAYARAN&idM=<?php echo $value['id_tables']?>" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-import"></i> BAYAR</a>
+            <a href="?p=INPUT TRANSAKSI&id=<?php echo $value['idtransaksi']?>" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-check"></i> BUKA</a>
+            <a href="#" onclick="Popup('nota.php?id=<?php echo $value['idtransaksi']?>','','800','500')" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-file"></i> NOTA</a>
           </td>
         </tr>
         <?php } ?>

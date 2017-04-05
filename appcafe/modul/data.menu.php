@@ -18,7 +18,7 @@
       </thead>
       <tbody>
         <?php
-            $query="SELECT * FROM vmenu";
+            $query="SELECT * FROM daftar_menu";
             $stmt = $db->prepare($query);
             $stmt->execute();
             $i = 1;
@@ -27,13 +27,13 @@
         ?>
         <tr>
           <td><?php echo $no; ?></td>
-          <td><?php echo $value['namaMenu']; ?></td>
-          <td><?php echo $value['JenisMenu']; ?></td>
-          <td><?php echo $value['DiscMenu']; ?></td>
-          <td><?php echo $value['HargaMenu']; ?></td>
-          <td><?php if($value['StatusMenu']=='1'){ echo "ADA";}else { echo "KOSONG";  } ?></td>
+          <td><?php echo $value['namamenu']; ?></td>
+          <td><?php echo $value['jnsmenu']; ?></td>
+          <td><?php echo $value['menudiskon']; ?></td>
+          <td><?php echo $value['Harga']; ?></td>
+          <td><?php if($value['statusMenu']=='1'){ echo "ADA";}else { echo "KOSONG";  } ?></td>
           <td>
-            <a href="?p=EDIT MENU&idM=<?php echo $value['idMenu']; ?>" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-check"></i></a>
+            <a href="?p=EDIT MENU&idM=<?php echo $value['idmenu']; ?>" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-check"></i></a>
           </td>
         </tr>
         <?php } ?>

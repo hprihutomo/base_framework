@@ -1,26 +1,21 @@
 <?php
-    $q = "SELECT * FROM transaksi ORDER BY idtransaksi DESC LIMIT 1";
+    $q = "SELECT * FROM pembelian ORDER BY idpembelian DESC LIMIT 1";
     $smt = $db->prepare($q);
     $smt->execute();
     $data = $smt->fetch();
-    $no = $data['idtransaksi'];
+    $no = $data['idpembelian'];
     $notr = $no+1;
 
 if (isset($_POST['tambah'])) {
-  $input = "INSERT INTO transaksi (tgltransaksi,idmeja,waitress,idpengguna) VALUES (?,?,?,'1')";
+  $input = "INSERT INTO pembelian (tglpembelian,waitress,idpengguna) VALUES (?,?,'1')";
 
   $stmt = $db->prepare($input);
   $stmt->bindParam('1',$_POST['tglTR']);
-  $stmt->bindParam('2',$_POST['noMeja']);
-  $stmt->bindParam('3',$_POST['waitress']);
+  $stmt->bindParam('2',$_POST['waitress']);
   $action = $stmt->execute();
 
-  $set = "UPDATE meja SET statusmeja = 1 WHERE idmeja = '".$_POST['noMeja']."'";
-  $smt = $db->prepare($set);
-  $smt->execute();
-
   if ($action) {
-    $pesan = "<div class='alert alert-success'>Data Telah Di Input <a href='?p=INPUT TRANSAKSI&id=$notr'>LANJUT<a></div>";
+    $pesan = "<div class='alert alert-success'>Data Telah Di Input <a href='?p=INPUT PEMBELIAN&id=$notr'>LANJUT<a></div>";
   }else {
       $pesan = "<div class='alert alert-danger'>Data Gagal Di Input</div>";
   }
@@ -45,7 +40,7 @@ if (isset($_POST['tambah'])) {
             <td>TGL TRANSAKSI</td>
             <td><input type="date" name="tglTR" value="<?php echo date('Y-m-d'); ?>"></td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>NO MEJA</td>
             <td>
               <select class="" name="noMeja">
@@ -59,7 +54,7 @@ if (isset($_POST['tambah'])) {
                 <?php } ?>
               </select>
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td>WAITRESS</td>
             <td>

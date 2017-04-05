@@ -1,8 +1,8 @@
 <?php
   if (isset($_POST['simpan'])) {
-    $query = "INSERT INTO mstable (code_tables,status_tables) VALUES (?,0)";
+    $query = "INSERT INTO meja (nomormeja,statusmeja) VALUES (?,0)";
     $stmt = $db->prepare($query);
-    $stmt->bindParam(1,$_POST['table']);
+    $stmt->bindParam(1,$_POST['nomormeja']);
     $action = $stmt->execute();
 
     if ($action) {

@@ -1,12 +1,12 @@
 <?php
 $id = $_GET['idM'];
-$query = "SELECT * FROM mstable WHERE id_tables = $id";
+$query = "SELECT * FROM meja WHERE idmeja = $id";
 $stmt = $db->prepare($query);
 $stmt->execute();
 $data = $stmt->fetch();
 
 if (isset($_POST['update'])) {
-  $query = "UPDATE mstable SET code_tables = ? WHERE id_tables = ?";
+  $query = "UPDATE meja SET nomormeja = ? WHERE idmeja = ?";
   $stmt = $db->prepare($query);
   $stmt->bindParam(1,$_POST['table']);
   $stmt->bindParam(2,$id);

@@ -1,13 +1,13 @@
 <?php
 $id = $_GET['idM'];
-$query = "SELECT * FROM msmenu WHERE idMenu = $id";
+$query = "SELECT * FROM daftar_menu WHERE idmenu = $id";
 $stmt = $db->prepare($query);
 $stmt->execute();
 $data = $stmt->fetch();
 
 if (isset($_POST['simpan'])) {
 
-  $query = "UPDATE msmenu SET idJenisMenu = ? ,namaMenu = ?,Hpp = ?,HargaMenu = ?,DiscMenu = ?,StatusMenu = ? WHERE idMenu = ?";
+  $query = "UPDATE menu SET idjnsmenu = ? ,namamenu = ?,Hpp = ?,Harga = ?,menudiskon = ?,statusMenu = ? WHERE idmenu = ?";
   $stmt = $db->prepare($query);
   $stmt->bindParam(1,$_POST['jnsmenu']);
   $stmt->bindParam(2,$_POST['namaMenu']);

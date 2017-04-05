@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <?php
-          $query = "SELECT * FROM mstable";
+          $query = "SELECT * FROM meja";
           $stmt = $db->prepare($query);
           $stmt->execute();
           $i = 1;
@@ -23,9 +23,9 @@
          ?>
         <tr>
           <td><?php echo $no; ?></td>
-          <td><?php echo $value['code_tables']; ?></td>
+          <td><?php echo $value['nomormeja']; ?></td>
           <td>
-            <a href="?p=EDIT MEJA&idM=<?php echo $value['id_tables']?>" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-check"></i></a>
+            <a href="?p=EDIT MEJA&idM=<?php echo $value['idmeja']?>" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-check"></i></a>
           </td>
         </tr>
         <?php } ?>
